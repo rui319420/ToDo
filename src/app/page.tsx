@@ -3,11 +3,30 @@
 import { useState } from 'react';
 import styles from './page.module.css';
 
+type ToDo = {
+  id: number;
+  text: string;
+  completed: boolean;
+};
 export default function Home() {
   const [inputValue, setInputValue] = useState('');
+  const [todos, setTodos] = useState([] as ToDo[]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
+  };
+
+  const handleAddTodo = () => {
+    if (inputValue.trim() === '') {
+      return;
+    }
+    const newToDo: ToDo = {
+      id: Date.now(),
+      text: inputValue,
+      completed: false,
+    };
+    setTodos([...todos, newToDo]);
+    setInputValue('');
   };
 
   return (
@@ -22,9 +41,15 @@ export default function Home() {
             value={inputValue}
             onChange={handleInputChange}
           />
-          <button className={styles.addButton}>追加</button>
+          <button className={styles.addButton} onClick={handleAddTodo}>
+            追加
+          </button>
         </div>
-        <p>現在の入力値: {inputValue}</p>
+        <ul>
+          {todos.map((todo) => (
+            <li key={todo.id}>{todo.text}</li>
+          ))}
+        </ul>
       </main>
     </div>
   );
