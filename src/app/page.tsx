@@ -29,6 +29,21 @@ export default function Home() {
     setInputValue('');
   };
 
+  const handleDeleteTodo = (idToDelete: number) => {
+    const newTodos = todos.filter((todo) => todo.id !== idToDelete);
+    setTodos(newTodos);
+  };
+
+  const handleToggleComplete = (idToToggle: number) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === idToToggle) {
+        return { ...todo, completed: !todo.completed };
+      }
+      return todo;
+    });
+    setTodos(newTodos);
+  };
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -45,9 +60,19 @@ export default function Home() {
             追加
           </button>
         </div>
-        <ul>
+        <ul className={styles.todoList}>
           {todos.map((todo) => (
-            <li key={todo.id}>{todo.text}</li>
+            <li key={todo.id} className={todo.completed ? styles.completed : ''}>
+              <input
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => handleToggleComplete(todo.id)}
+              />
+              <span>{todo.text}</span>
+              <button className={styles.deleteButton} onClick={() => handleDeleteTodo(todo.id)}>
+                削除
+              </button>
+            </li>
           ))}
         </ul>
       </main>

@@ -5,7 +5,7 @@
   justify-content: center;
   height: 100vh;
   min-height: 100vh;
-  background-color: rgb(56 27 84);
+  background-color: rgb(255 255 255);
 }
 
 .main {
@@ -25,4 +25,37 @@
   padding: 8px 16px;
   font-size: 16px;
   cursor: pointer;
+}
+
+.todoList {
+  width: 100%;
+  max-width: 500px;
+  padding: 0;
+  list-style: none;
+}
+
+.todoList li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.completed span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+.todoList li span {
+  flex-grow: 1;
+  margin: 0 10px;
+}
+
+.deleteButton {
+  padding: 5px 10px;
+  color: white;
+  cursor: pointer;
+  background-color: #ff4d4d;
+  border: none;
+  border-radius: 5px;
 }
